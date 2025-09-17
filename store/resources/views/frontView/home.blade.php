@@ -15,8 +15,8 @@
     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque vitae.</p>
 
     <!-- Search Form -->
-    <form action="https://www.google.com/search" method="get" target="_blank">
-      <input type="text" name="q" placeholder="Search Google...">
+    <form action="" method="" target="">
+      <input type="text" name="q" placeholder="Search Products...">
       <button type="submit" class="search-btn">Search</button>
     </form>
   </div> 
@@ -29,7 +29,7 @@
     <div class="row justify-content-center">
         @for ($i = 1; $i <= 12; $i++)
         <div class="col-6 col-md-3 col-lg-2 mb-4">
-            <div class="card h-100 shadow-sm">
+            <div class="card h-100" style="box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;">
             <img src="{{ asset('images/product' . $i . '.webp') }}" class="card-img-top" alt="Product {{ $i }}">
             <div class="card-body d-flex flex-column">
                 <h5 class="card-title">Product {{ $i }}</h5>

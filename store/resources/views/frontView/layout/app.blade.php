@@ -12,7 +12,7 @@
 <body>
 
     <!-- Header -->
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top shadow-sm" id="mainNavbar">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNavbar" style="box-shadow: 0px 10px 15px rgba(0, 0, 0, 0.5);">
   <div class="container">
     <a class="navbar-brand" href="{{ url('/') }}">My Store</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" 
