@@ -12,3 +12,4 @@ class PagesController extends Controller
         return view('frontView.home');
     }
 }
+ 
