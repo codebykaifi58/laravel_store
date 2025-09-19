@@ -20,8 +20,9 @@
                 <label for="category">Category</label>
                 <select id="category" class="form-control">
                     <option value="">Select Category</option>
-                    <option>Category A</option>
-                    <option>Category B</option>
+                    @foreach($MyCategory as $MyCategory)
+                    <option>{{$MyCategory->name}}</option>
+@endforeach                
                 </select>
             </div>
 

@@ -10,19 +10,46 @@
 
 <div class="card">
     <div class="card-body">
-        <form>
+        <form method="POST" action="{{route('addCategorystore')}}">
+            @csrf
             <div class="form-group mb-3">
                 <label for="category_name">Category Name</label>
-                <input type="text" id="category_name" class="form-control" placeholder="Enter category name">
+                <input type="text" id="category_name" name="CategoryAdd" class="form-control" placeholder="Enter category name">
             </div>
-
-            <div class="form-group mb-3">
-                <label for="description">Description (Optional)</label>
-                <textarea id="description" class="form-control" rows="3" placeholder="Enter category description"></textarea>
-            </div>
-
-            <button type="button" class="btn btn-primary">Save Category</button>
+            <button type="submit" class="btn btn-primary">Save Category</button>
         </form>
     </div>
 </div>
+@include('FlashMessage');
+
+  <table class="table table-bordered table-striped">
+    <thead class="table-dark">
+      <tr>
+        <th>#</th>
+        <th>Category Name</th>
+        <th>Created At</th>
+        <th>Updated At</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody id="categoryTableBody">
+      <!-- Example row -->
+       @foreach($MyCategory as $MyCategory)
+      <tr>
+
+        <td>{{$MyCategory->id}}</td>
+        <td>{{$MyCategory->name}}</td>
+        <td>{{$MyCategory->created_at}}</td>
+        <td>{{$MyCategory->updated_at}}</td>
+        
+        <td>
+          <button class="btn btn-sm btn-warning">Edit</button>
+          <button class="btn btn-sm btn-danger">Delete</button>
+        </td>
+      </tr>
+      @endforeach
+    </tbody>
+  </table>
+
+
 @endsection

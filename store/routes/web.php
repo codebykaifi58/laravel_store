@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\backApp\PagesController; // ✅ Import correctly
+use App\Http\Controllers\front\WebPagesController; // ✅ Import correctly
 
 /*
 |--------------------------------------------------------------------------
@@ -10,9 +11,7 @@ use App\Http\Controllers\backApp\PagesController; // ✅ Import correctly
 |--------------------------------------------------------------------------
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [WebPagesController::Class , 'home'])->name('home');
 
 Route::get('/dash', [PagesController::class, 'dash'])->name('dash'); // ✅ This now works
 
@@ -23,7 +22,7 @@ Route::get('/products/add', [PagesController::class, 'addProduct'])->name('produ
 
 // Categories
 Route::get('/category/add', [PagesController::class, 'addCategory'])->name('category.add');
-
+Route::post('/addCategorystore', [PagesController::class, 'addCategorystore'])->name('addCategorystore');
 // Orders
 Route::get('/orders', [PagesController::class, 'orders'])->name('orders.index');
 

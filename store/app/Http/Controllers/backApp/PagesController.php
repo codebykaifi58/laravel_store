@@ -1,14 +1,14 @@
 <?php
 
 namespace App\Http\Controllers\backApp;
-
+use App\Models\AddCategory;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 class PagesController extends Controller
 {
     public function dash() {
-        return view('backView.dashback');
+        return view('backView.layoutback.dashback');
     }
 
     public function products() {
@@ -16,11 +16,13 @@ class PagesController extends Controller
     }
 
     public function addProduct() {
-        return view('backView.addProduct');
-    }
+        $MyCategory=AddCategory::All();
+        return view('backView.addProduct' , compact('MyCategory'));
+    } 
 
     public function addCategory() {
-        return view('backView.addCategory');
+        $MyCategory=AddCategory::All();
+        return view('backView.addCategory', compact('MyCategory'));
     }
 
     public function orders() {
@@ -29,5 +31,14 @@ class PagesController extends Controller
 
     public function customers() {
         return view('backView.customers');
+    }
+    public function addCategorystore(request $request){
+        $request->validate([
+            'CategoryAdd' => 'required',
+        ]);
+        AddCategory::Create([
+            'name' => $request->CategoryAdd
+        ]);
+        return redirect()->back()->with('succes','your Category added Succesfully..');
     }
 }
