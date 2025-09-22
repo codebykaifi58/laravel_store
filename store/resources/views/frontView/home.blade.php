@@ -12,24 +12,26 @@
   <!-- Centered Overlay Content -->
   <div class="content">
     <h1>Heading</h1>
+    
     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque vitae.</p>
 
     <!-- Search Form -->
-    <form action="" method="" target="" class="search-form" autocomplete="off">
-      <div class="search-wrapper">
+    <form action="{{ route('search.products') }}" method="GET" target="" class="search-form" autocomplete="off">
+    <div class="search-wrapper">
         <!-- Input -->
-        <input type="text" id="searchInput" name="q" placeholder="Search Products...">
+        <input type="text" id="searchInput" name="q" placeholder="Search Products..." value="{{ request('q') }}">
         <!-- Button -->
         <button type="submit" class="search-btn">Search</button>
 
         <!-- Dropdown Suggestions -->
         <ul id="searchDropdown" class="dropdown-list hidden">
-          @foreach($MyCategory as $category)
-            <li style="color:black">{{ $category->name }}</li>
-          @endforeach
+            @foreach($MyCategory as $category)
+                <li style="color:black">{{ $category->name }}</li>
+            @endforeach
         </ul>
-      </div>
-    </form>
+    </div>
+</form>
+
   </div>
 </section>
 
@@ -48,7 +50,7 @@
               <strong class="text-primary mb-2">${{ 10 + ($i * 10) - 0.01 }}</strong>
               <a href="#" class="btn btn-outline-primary mt-auto">View Details</a>
             </div>
-          </div>  
+          </div>
         </div>
       @endfor
     </div>
@@ -79,6 +81,34 @@
       dropdown.classList.add('hidden');
     }
   });
+
+
+  $(document).ready(function () {
+    $('#searchInput').on('input', function () {
+        let query = $(this).val();
+        if (query.length > 2) { // Trigger after 2 or 3 characters
+            $.get("{{ route('search.products') }}", { q: query }, function (data) {
+                $('#searchDropdown').removeClass('hidden').empty();
+                // Populate suggestions
+                if (data.categories.length > 0) {
+                    data.categories.forEach(function (category) {
+                        $('#searchDropdown').append('<li>' + category.name + '</li>');
+                    });
+                }
+            });
+        } else {
+            $('#searchDropdown').addClass('hidden');
+        }
+    });
+
+    // Hide dropdown when clicking outside
+    $(document).on('click', function (e) {
+        if (!$(e.target).closest('.search-wrapper').length) {
+            $('#searchDropdown').addClass('hidden');
+        }
+    });
+});
+
 </script>
 
 @endsection

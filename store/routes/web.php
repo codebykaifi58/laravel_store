@@ -10,6 +10,9 @@ use App\Http\Controllers\front\WebPagesController; // ✅ Import correctly
 | Web Routes
 |--------------------------------------------------------------------------
 */
+use App\Http\Controllers\SearchController;
+
+Route::get('/search', [SearchController::class, 'search'])->name('search.products');
 
 Route::get('/', [WebPagesController::Class , 'home'])->name('home');
 
@@ -28,6 +31,10 @@ Route::get('/orders', [PagesController::class, 'orders'])->name('orders.index');
 
 // Customers
 Route::get('/customers', [PagesController::class, 'customers'])->name('customers.index');
+
+// product add
+Route::get('/productAdd', [PagesController::class, 'productAdd'])->name('productAdd');
+Route::post('/add-store-product', [PagesController::class,'addproductstore'])->name('addproductstore');
 
 
 

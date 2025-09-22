@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\backApp;
 use App\Models\AddCategory;
 use App\Http\Controllers\Controller;
+use App\Models\Product;
 use Illuminate\Http\Request;
 
 class PagesController extends Controller
@@ -12,8 +13,10 @@ class PagesController extends Controller
     }
 
     public function products() {
-        return view('backView.products');
+        $products = Product::with('categoryRelation')->get();
+        return view('backView.products', compact('products'));
     }
+
 
     public function addProduct() {
         $MyCategory=AddCategory::All();
@@ -41,4 +44,31 @@ class PagesController extends Controller
         ]);
         return redirect()->back()->with('succes','your Category added Succesfully..');
     }
+public function addproductstore(Request $request) {
+    $request->validate([
+        'name' => 'required',
+        'category' => 'required',
+        'price' => 'required',
+        'quantity' => 'required',
+        'image' => 'required|image',  // add image validation
+        'discription' => 'required',
+    ]);
+
+    $imagepath = null;
+    if ($request->hasFile('image')) {
+        $imagepath = $request->file('image')->store('product', 'public');
+    }
+
+    Product::create([
+        'name' => $request->name,
+        'category' => $request->category,
+        'price' => $request->price,
+        'quantity' => $request->quantity,
+        'image' => $imagepath,  // save the stored image path here
+        'discription' => $request->discription,
+    ]);
+
+    return redirect()->back()->with('success', 'Product added successfully.');
+}
+
 }
